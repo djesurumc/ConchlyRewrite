@@ -7,26 +7,14 @@ import assets from "../config/assets";
 import tests from "../config/tests";
 import Event from "../components/Event";
 import {Modalize} from "react-native-modalize";
+import eventData from "../tests/eventData";
 
-
-type Event = {
-    id: number,
-    title: string,
-    manager: string,
-    description: string,
-    image: string,
-    profile: string,
-    attendees: Array<string>,
-};
 
 export function EventMenu(props: any) {
     //Make Mocklist
-    let eventList = [];
-    for (let i = 1; i < 51; i++) {
-        eventList.push({ title: `Event ${i}`, manager: `Manager ${i}`, attendees: [], profile: assets.testing.profilePicture, description: tests.huge, image: tests.image, clicked: false,  id:i})
-    }
+    const eventList = eventData(50)
 
-    const [events, setEvents] = useState<Array<Event>>(eventList);
+    const [events, setEvents] = useState<Array<event>>(eventList);
 
 
 
@@ -55,7 +43,7 @@ export function EventMenu(props: any) {
     const [currentImage, setCurrentImage] = useState<string>("");
     const [currentAttendees, setCurrentAttendees] = useState<Array<string>>([]);
 
-    const updateCurrentEvent = (event: Event) => {
+    const updateCurrentEvent = (event: event) => {
         setCurrentTitle(event.title);
         setCurrentManager(event.manager);
         setCurrentDescription(event.description)
@@ -89,7 +77,7 @@ export function EventMenu(props: any) {
 
 
                 <FlatList
-                    keyExtractor={(item: Event) => item.id.toString()}
+                    keyExtractor={(item: event) => item.id.toString()}
                     data={events}
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => {
